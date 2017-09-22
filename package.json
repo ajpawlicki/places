@@ -22,6 +22,7 @@
   "dependencies": {
     "css-loader": "^0.28.7",
     "express": "^4.15.4",
+    "file-loader": "^0.11.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "style-loader": "^0.18.2"
