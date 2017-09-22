@@ -12,14 +12,21 @@ class App extends Component {
       currLocation: {
         lat: 41.9484,
         lng: -87.6553
-      }
+      },
+      searchResults: []
     }
+
+    this.saveSearchResults = this.saveSearchResults.bind(this);
+  }
+
+  saveSearchResults(results) {
+    this.setState({searchResults: results});
   }
 
   render() {
     return (
       <div>
-        <Map currLocation={this.state.currLocation} />
+        <Map currLocation={this.state.currLocation} saveSearchResults={this.saveSearchResults} />
       </div>
     );
   }

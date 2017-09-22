@@ -9,6 +9,8 @@ class Map extends Component {
       map: null,
       infoWindow: null
     };
+
+    this.nearbySearchCallback = this.nearbySearchCallback.bind(this);
   }
 
   initMap (location) {
@@ -20,7 +22,28 @@ class Map extends Component {
     this.setState({
       map: map,
       // infoWindow: new google.maps.InfoWindow()
+      // service: new google.maps.places.PlacesService(map)
     });
+
+    const service = new google.maps.places.PlacesService(map);
+
+    service.nearbySearch({
+      location: location,
+      radius: 500,
+      type: ['restaurant']
+    }, this.nearbySearchCallback)
+  }
+
+  nearbySearchCallback(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      for (let i = 0; i < results.length; i++) {
+        let place = results[i];
+        // createMarker(results[i]);
+      }
+      
+      this.props.saveSearchResults(results);
+      console.log('results:', results);
+    }
   }
 
   componentDidMount() {
