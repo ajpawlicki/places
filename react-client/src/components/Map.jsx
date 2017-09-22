@@ -8,8 +8,6 @@ class Map extends Component {
     super(props);
 
     this.state = {
-      map: null,
-      infoWindow: null
     };
 
     this.nearbySearchCallback = this.nearbySearchCallback.bind(this);
@@ -21,14 +19,14 @@ class Map extends Component {
       center: location,
       zoom: 16
     });
-
+    
+    const service = new google.maps.places.PlacesService(map);
+    
     this.setState({
       map: map,
       // infoWindow: new google.maps.InfoWindow()
-      service: new google.maps.places.PlacesService(map)
+      service: service
     });
-
-    const service = new google.maps.places.PlacesService(map);
 
     service.nearbySearch({
       location: location,
@@ -65,25 +63,24 @@ class Map extends Component {
       position: place.geometry.location
     });
 
-    const infoWindow = new google.maps.InfoWindow({
-      content: `<div>${place.name}</div>`
-    });
+    const infoWindow = new google.maps.InfoWindow();
+
+    // google.maps.event.addListener(marker, 'mouseover', () => {
+    //   infoWindow.open(this.state.map, marker);
+    //   setTimeout(() => infoWindow.close(), 2000);
+    // });
 
     google.maps.event.addListener(marker, 'mouseover', () => {
-      infoWindow.open(this.state.map, marker);
-      setTimeout(() => infoWindow.close(), 2000);
-    })
-  
-    // google.maps.event.addListener(marker, 'click', function() {
-    //   service.getDetails(place, function(result, status) {
-    //     if (status !== google.maps.places.PlacesServiceStatus.OK) {
-    //       console.error(status);
-    //       return;
-    //     }
-    //     infoWindow.setContent(result.name);
-    //     infoWindow.open(map, marker);
-    //   });
-    // });
+      this.state.service.getDetails(place, (result, status) => {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
+          console.error(status);
+          return;
+        }
+        infoWindow.setContent(result.name);
+        infoWindow.open(this.state.map, marker);
+        setTimeout(() => infoWindow.close(), 2000);
+      });
+    });
 
     return marker;
   } 
