@@ -34,7 +34,16 @@ module.exports = {
         }]
       },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
-      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }
+      { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
+      {
+        //IMAGE LOADER
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader',
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=public/fonts/[name].[ext]',
+      }
     ]
   }
 }
