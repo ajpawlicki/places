@@ -64,6 +64,15 @@ class Map extends Component {
       icon: icon,
       position: place.geometry.location
     });
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: `<div>${place.name}</div>`
+    });
+
+    google.maps.event.addListener(marker, 'mouseover', () => {
+      infoWindow.open(this.state.map, marker);
+      setTimeout(() => infoWindow.close(), 2000);
+    })
   
     // google.maps.event.addListener(marker, 'click', function() {
     //   service.getDetails(place, function(result, status) {
