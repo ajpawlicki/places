@@ -20,7 +20,7 @@ class Form extends Component {
   addAutocomplete() {
     const autocomplete = new google.maps.places.Autocomplete(
       document.getElementById('autocomplete'), {
-      types: ['(cities)']
+      // types: ['(cities)']
     });
 
     this.setState({autocomplete: autocomplete});
@@ -48,10 +48,12 @@ class Form extends Component {
     return (
       <div className="form-container">
         <form onSubmit={this.handleSubmitForm}>
+          <input type="submit" value="Search"/>
           <input 
           id="autocomplete"
-          type="text"/>
-          <input type="submit" value="Search"/>
+          type="text"
+          placeholder="Please enter a place"
+          />
         </form>
       </div>
     );
