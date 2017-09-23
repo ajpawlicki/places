@@ -62,6 +62,11 @@ class Map extends Component {
 
     const infoWindow = new google.maps.InfoWindow();
 
+    // google.maps.event.addListener(marker, 'mouseover', () => {
+    //   infoWindow.open(this.state.map, marker);
+    //   setTimeout(() => infoWindow.close(), 2000);
+    // });
+
     google.maps.event.addListener(marker, 'mouseover', () => {
       this.state.service.getDetails(place, (result, status) => {
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
@@ -74,23 +79,24 @@ class Map extends Component {
       });
     });
 
-    // return marker;
+    return marker;
   } 
 
   componentDidMount() {
     this.initMap(this.props.currLocation);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps !== null && (nextProps.currLocation.lat !== this.props.currLocation.lat || nextProps.currLocation.lng !== this.props.currLocation.lng)) {
-  //     this.state.map.setCenter(nextProps.currLocation);
-  //     this.state.service.nearbySearch({
-  //       location: nextProps.currLocation,
-  //       radius: 500,
-  //       type: ['store']
-  //     }, this.nearbySearchCallback);
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== null && (nextProps.currLocation.lat !== this.props.currLocation.lat || nextProps.currLocation.lng !== this.props.currLocation.lng)) {
+      this.state.map.setCenter(nextProps.currLocation);
+      
+      this.state.service.nearbySearch({
+        location: nextProps.currLocation,
+        radius: 500,
+        type: ['store']
+      }, this.nearbySearchCallback);
+    }
+  }
 
   render() {
     return (
