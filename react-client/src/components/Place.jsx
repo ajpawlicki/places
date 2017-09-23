@@ -10,11 +10,7 @@ class Place extends Component {
 
   handleClick(event) {
     event.preventDefault();
-    this.props.place.marker.setAnimation(google.maps.Animation.DROP);
-    
-    // setTimeout(() => {
-    //   this.props.place.marker.setAnimation(null);
-    //  }, 1000);
+    this.props.dropMarker(this.props.place);
   }
 
   render() {
