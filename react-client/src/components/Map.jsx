@@ -36,11 +36,11 @@ class Map extends Component {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (let i = 0; i < results.length; i++) {
         let place = results[i];
-        this.addMarker(place);
+        place.marker = this.addMarker(place);
         // createMarker(results[i]);
       }
       
-      this.props.saveSearchResults(results);
+      this.props.updatePlaces(results);
       console.log('results:', results);
     }
   }
@@ -62,12 +62,7 @@ class Map extends Component {
 
     const infoWindow = new google.maps.InfoWindow();
 
-    // google.maps.event.addListener(marker, 'mouseover', () => {
-    //   infoWindow.open(this.state.map, marker);
-    //   setTimeout(() => infoWindow.close(), 2000);
-    // });
-
-    google.maps.event.addListener(marker, 'mouseover', () => {
+    google.maps.event.addListener(marker, 'click', () => {
       this.state.service.getDetails(place, (result, status) => {
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
           console.error(status);
