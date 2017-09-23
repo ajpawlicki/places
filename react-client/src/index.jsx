@@ -74,11 +74,9 @@ class App extends Component {
           console.error(status);
           return;
         }
-        marker.setVisible(false);
+        setTimeout(() => marker.setVisible(false), 400);
       });
     });
-
-    // return marker;
   }
 
   render() {

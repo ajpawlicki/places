@@ -8,7 +8,6 @@ class Map extends Component {
     super(props);
 
     this.nearbySearchCallback = this.nearbySearchCallback.bind(this);
-    // this.addMarker = this.addMarker.bind(this);
   }
 
   initMap (location) {
@@ -21,12 +20,6 @@ class Map extends Component {
     
     this.props.setMapAndService({map, service});
 
-    // this.setState({
-    //   map: map,
-    //   infoWindow: new google.maps.InfoWindow()
-    //   service: service
-    // });
-
     service.nearbySearch({
       location: location,
       radius: 500,
@@ -36,48 +29,10 @@ class Map extends Component {
 
   nearbySearchCallback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-      for (let i = 0; i < results.length; i++) {
-        let place = results[i];
-        // place.marker = this.addMarker(place);
-        // createMarker(results[i]);
-      }
-      
       this.props.updatePlaces(results);
       console.log('results:', results);
     }
   }
-
-  // addMarker(place) {
-  //   const icon = new google.maps.MarkerImage(
-  //     logo,
-  //     null, /* size is determined at runtime */
-  //     null, /* origin is 0,0 */
-  //     null, /* anchor is bottom center of the scaled image */
-  //     new google.maps.Size(50, 50),
-  //   );
-
-  //   const marker = new google.maps.Marker({
-  //     map: this.state.map,
-  //     icon: icon,
-  //     position: place.geometry.location
-  //   });
-
-  //   const infoWindow = new google.maps.InfoWindow();
-
-  //   google.maps.event.addListener(marker, 'click', () => {
-  //     this.state.service.getDetails(place, (result, status) => {
-  //       if (status !== google.maps.places.PlacesServiceStatus.OK) {
-  //         console.error(status);
-  //         return;
-  //       }
-  //       infoWindow.setContent(result.name);
-  //       infoWindow.open(this.state.map, marker);
-  //       setTimeout(() => infoWindow.close(), 2000);
-  //     });
-  //   });
-
-  //   return marker;
-  // }
 
   componentDidMount() {
     this.initMap(this.props.currLocation);
