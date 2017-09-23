@@ -11,7 +11,10 @@ class PlacesList extends Component {
   render() {
     return (
       <div className="list">
-          {this.props.places.map(place => <Place key={place.id} place={place} />)}
+          {this.props.places.map(place => <Place
+            key={place.id} 
+            place={place}
+            dropMarker={this.props.dropMarker} />)}
       </div>
     );
   }
