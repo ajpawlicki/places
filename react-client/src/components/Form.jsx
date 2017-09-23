@@ -37,9 +37,11 @@ class Form extends Component {
     event.preventDefault();
     const geometry = this.state.query.geometry;
     
-    const lat = geometry.location.lat();
-    const lng = geometry.location.lng();
-    this.props.setCurrLocation({lat,lng});
+    if (geometry) {
+      const lat = geometry.location.lat();
+      const lng = geometry.location.lng();
+      this.props.setCurrLocation({lat,lng});
+    }
   }
 
   render() {

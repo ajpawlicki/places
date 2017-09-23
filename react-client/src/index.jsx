@@ -33,7 +33,8 @@ class App extends Component {
     return (
       <div>
         <Form setCurrLocation={this.setCurrLocation}/>
-        <Map currLocation={this.state.currLocation} saveSearchResults={this.saveSearchResults} />
+        <Map currLocation={this.state.currLocation}
+          saveSearchResults={this.saveSearchResults} />
       </div>
     );
   }
